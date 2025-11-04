@@ -141,7 +141,7 @@ Example Prometheus scrape target:
 
 ## 📄 License
 
-MIT License © 2025 Your Name / Organization
+MIT License © 2025 Ibrahim Al Tuwayhir
 
 ---
 
