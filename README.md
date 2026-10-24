@@ -1,161 +1,27 @@
 # Customer Feedback Dashboard
 
-A full-stack customer feedback dashboard built with **React (TypeScript)** on the frontend and **NestJS** with **PostgreSQL** on the backend.  
-This app is fully containerized with **Docker**, tested and built via **GitHub Actions**, and published to **GitHub Packages (GHCR)**.  
-Optimized for scalability, caching, and observability.
+This repository currently contains configuration and deployment-related files for a planned customer-feedback dashboard. The frontend and backend source folders described in the previous README are not present in the current repository snapshot.
 
----
+## Files currently included
 
-## 🧩 Tech Stack
+- `.env.example` — environment-variable template
+- `ci.yml` — CI workflow configuration
+- `docker-compose.prod.yml` — production Compose configuration
+- `README.md` — project notes
 
-**Frontend:** React + TypeScript  
-**Backend:** NestJS + TypeORM + PostgreSQL  
-**Infrastructure:** Docker, GitHub Actions (CI/CD), GHCR Registry  
-**Performance:** Redis caching, DB indexing  
-**Monitoring:** Prometheus, Grafana, Sentry
+## Intended technology direction
 
----
+The previous project description referenced React with TypeScript, NestJS, TypeORM, PostgreSQL, Redis, Docker, and monitoring tools. These should be treated as planned components until the corresponding application code and working configuration are committed here.
 
-## 📦 Project Structure
+## Current status
 
-```
-customer-feedback-dashboard/
-├── backend/               # NestJS app
-├── frontend/              # React app
-├── .github/workflows/ci.yml
-├── docker-compose.yml     # Dev stack
-├── docker-compose.prod.yml
-├── .env.example
-└── README.md
-```
+The application is not reproducible from this repository alone because the source code and some referenced configuration files are missing. Local startup, automated tests, container builds, and production deployment instructions cannot be verified from the current contents.
 
----
+## Before presenting this as a runnable project
 
-## 🚀 Quick Start (Local Development)
+1. Add the frontend and backend source code.
+2. Confirm that Compose file paths, ports, and environment variables match the actual services.
+3. Add reproducible setup instructions and tests.
+4. Run the documented commands and update this README with verified results.
 
-### 1. Clone & Configure
-
-```bash
-git clone https://github.com/your-org/customer-feedback-dashboard.git
-cd customer-feedback-dashboard
-cp .env.example backend/.env
-```
-
-Update values in `.env` (especially DB credentials and secrets).
-
-### 2. Start the stack
-
-```bash
-docker-compose up --build
-```
-
-Frontend → http://localhost:3000  
-Backend API → http://localhost:4000
-
----
-
-## 🧪 Run Tests
-
-```bash
-# backend
-cd backend
-npm ci && npm test
-
-# frontend
-cd frontend
-npm ci && npm test
-```
-
----
-
-## 🐳 Production Deployment with GHCR
-
-### 1. Log in to GHCR
-
-In your CI/CD or local terminal:
-
-```bash
-echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u USERNAME --password-stdin
-```
-
-### 2. Build & Push Images
-
-```bash
-docker build -t ghcr.io/<your-username>/<repo-name>:backend-latest ./backend
-docker push ghcr.io/<your-username>/<repo-name>:backend-latest
-
-docker build -t ghcr.io/<your-username>/<repo-name>:frontend-latest ./frontend
-docker push ghcr.io/<your-username>/<repo-name>:frontend-latest
-```
-
-### 3. Deploy via Docker Compose (Production)
-
-```bash
-docker-compose -f docker-compose.prod.yml up -d
-```
-
-This will start:
-- PostgreSQL
-- Redis
-- Backend API (NestJS)
-- Frontend (React)
-- Traefik reverse proxy (for routing)
-
----
-
-## 🔐 GitHub Packages / GHCR Setup
-
-1. Go to your GitHub repository → **Settings → Packages → Personal Access Tokens**
-2. Generate a classic PAT with **write:packages** and **read:packages**
-3. Add these secrets in your GitHub repo under **Settings → Secrets → Actions**:
-   - `REGISTRY_USER`: your GitHub username
-   - `REGISTRY_TOKEN`: your PAT token
-4. GitHub Actions workflow (`.github/workflows/ci.yml`) automatically logs in, builds, and pushes Docker images on each `main` push.
-
----
-
-## 📊 Monitoring & Observability
-
-- **Prometheus** scrapes `/metrics` endpoint from backend.
-- **Grafana** dashboards visualize latency, error rates, and throughput.
-- **Sentry** captures errors and performance traces.
-
-Example Prometheus scrape target:
-
-```yaml
-- job_name: 'feedback-api'
-  static_configs:
-    - targets: ['api:4000']
-```
-
----
-
-## 📈 Performance Optimizations
-
-- PostgreSQL indexes on frequent filters (`status`, `createdAt`, etc.)
-- Redis caching for list endpoints with key invalidation
-- Cursor pagination for large datasets
-- Connection pooling and query optimization
-
----
-
-## 📄 License
-
-MIT License © 2025 Ibrahim Al Tuwayhir
-
----
-
-## 🧠 Architecture Diagram (Mermaid)
-
-```mermaid
-flowchart LR
-  A[React Frontend] -->|REST| B[NestJS API]
-  B --> C[(PostgreSQL)]
-  B --> D[(Redis Cache)]
-  B --> E[Prometheus / Grafana]
-  B --> F[Sentry]
-
-  subgraph CI/CD
-    G[GitHub Actions] -->|Push Images| H[GHCR Packages]
-  end
-```
+This README intentionally describes the repository as it exists today rather than claiming unverified functionality.
